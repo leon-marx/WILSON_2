@@ -124,6 +124,8 @@ def get_argparser():
                         help="Restart from the ckpt. Named taken automatically from method name.")
     parser.add_argument("--ckpt_interval", type=int, default=1,
                         help="epoch interval for saving model (default: 1)")
+    parser.add_argument("--encoding", default="utf-8", type=str,
+                        help="encoding used on pretrained model")
 
     # Parameters for Knowledge Distillation of ILTSS (https://arxiv.org/abs/1907.13372)
     parser.add_argument("--freeze", action='store_true', default=False,

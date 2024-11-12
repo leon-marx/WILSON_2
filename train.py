@@ -411,7 +411,7 @@ class Trainer:
     def load_step_ckpt(self, path):
         # generate model from path
         if osp.exists(path):
-            step_checkpoint = torch.load(path, map_location="cpu", weights_only=False, encoding='latin1')
+            step_checkpoint = torch.load(path, map_location="cpu", weights_only=False, encoding=self.opts.encoding)
             self.model.load_state_dict(step_checkpoint['model_state'], strict=False)  # False for incr. classifiers
             if self.opts.init_balanced:
                 # implement the balanced initialization (new cls has weight of background and bias = bias_bkg - log(N+1)
@@ -435,7 +435,7 @@ class Trainer:
         opts = self.opts
         assert osp.isfile(path), f"Error, ckpt not found in {path}"
 
-        checkpoint = torch.load(opts.ckpt, map_location="cpu", weights_only=False, encoding='latin1')
+        checkpoint = torch.load(opts.ckpt, map_location="cpu", weights_only=False, encoding=self.opts.encoding)
         self.model.load_state_dict(checkpoint["model_state"], strict=True)
         self.optimizer.load_state_dict(checkpoint["optimizer_state"])
         self.scheduler.load_state_dict(checkpoint["scheduler_state"])
